@@ -20,12 +20,6 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ALLOWED_HOSTS = [
-    'library-management-rest-api.azurewebsites.net',  # ваш Azure домен
-    'localhost',            # для локального хосту
-    '127.0.0.1',           # для локального хосту
-]
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -36,7 +30,11 @@ SECRET_KEY = 'django-insecure-e^vmxlh)26s^(v2p1@znr+ckj(6!^%in12me@6cqk3)u=%qa_k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'library-management-rest-api.azurewebsites.net',  # ваш Azure домен
+    'localhost',            # для локального хосту
+    '127.0.0.1',           # для локального хосту
+]
 
 DATABASES = {
     'default': {
