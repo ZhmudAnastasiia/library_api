@@ -42,7 +42,7 @@ DATABASES = {
         'NAME': 'library',              
         'USER': 'root',                   
         'PASSWORD': 'Na.290909',               
-        'HOST': 'localhost',                  
+        'HOST': 'lib-server1.mysql.database.azure.com',                  
         'PORT': '3306',
     }
 }
