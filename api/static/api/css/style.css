@@ -1,0 +1,113 @@
+/* Загальний стиль сторінки */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f8f9; /* Світло-блакитний фон */
+    color: #4a4a4a; /* Темно-сірий текст */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Контейнер для форми */
+.container {
+    background-color: #ffffff; /* Білий фон для форми */
+    border-radius: 12px; /* Закруглені кути */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Легка тінь */
+    padding: 40px;
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Іконка */
+.icon {
+    font-size: 40px; /* Зменшена іконка */
+    color: #a7d8d3;
+    margin-bottom: 20px;
+}
+
+/* Заголовок */
+h1 {
+    color: #5a5a5a; /* Світло-сірий заголовок */
+    font-size: 28px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Теги для полів */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #6a6a6a; /* Світло-сірий підпис */
+    text-transform: uppercase; /* Великі літери для підписів */
+    text-align: left; /* Вирівняно по лівій стороні */
+}
+
+/* Поля вводу */
+input {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0 20px 0;
+    border: 1px solid #ccc; /* Світло-сірий бордер */
+    border-radius: 8px;
+    background-color: #fafafa; /* Легкий сірий фон */
+    font-size: 16px;
+    color: #333;
+    box-sizing: border-box; /* Для правильних відступів */
+    text-align: center; /* Текст у полях по центру */
+    transition: border 0.3s ease;
+}
+
+input:focus {
+    border-color: #7bc8a4; /* Легкий пастельний зелений при фокусі */
+    background-color: #ffffff; /* Білий фон при фокусі */
+    outline: none;
+}
+
+/* Кнопка реєстрації */
+button {
+    background-color: #a7d8d3; /* Пастельний блакитний */
+    color: white;
+    border: none;
+    padding: 10px 0; /* Зменшено висоту кнопки */
+    font-size: 16px; /* Зменшено шрифт */
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #86b8b0; /* Трохи темніший блакитний при наведенні */
+}
+
+/* Помилки */
+.error {
+    color: #e74c3c; /* Червоний колір для помилок */
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+/* Контейнери для посилань (вхід і реєстрація) */
+.form-links {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.form-links a {
+    color: #a7d8d3; /* Пастельний блакитний для посилання */
+    text-decoration: none;
+    transition: text-decoration 0.3s;
+}
+
+.form-links a:hover {
+    text-decoration: underline;
+}
+

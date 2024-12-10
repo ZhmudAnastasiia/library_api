@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books in Library</title>
+    <style>
+        .navbar {
+            background-color: #b9f9d3;
+            color: #185030;
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 30px;
+            align-items: center;
+            font-size: 18px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar div {
+            display: flex;
+            gap: 10px;
+        }
+
+        .navbar a, .navbar button {
+            color: #185030;
+            text-decoration: none;
+            background-color: #b9f9d3;
+            border: none;
+            width: 150px;
+            padding: 5px 5px;
+            margin-right: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a:hover, .navbar button:hover {
+            background-color: #b9f9d3;
+            box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar .logout-btn {
+            background-color: #377552;
+            color: white;
+            width: 100px;
+            padding: 8px 15px;
+            font-size: 14px;
+            margin-left: auto;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .logout-btn:hover {
+            background-color: #1b7250;
+            box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #dcede3;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin: 30px 30px 10px;
+            color: #185030;
+        }
+
+        .error {
+            color: red;
+            display: none;
+        }
+
+        .book-list {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .book-item {
+            background-color: #b9f9d3;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+        }
+
+        .book-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #185030;
+            padding: 10px;
+            border-radius: 5px;
+            text-transform: capitalize;
+        }
+
+        .book-info {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .book-info span {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .book-button {
+            background-color: #377552;
+            color: white;
+            padding: 8px 15px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .book-button:hover {
+            background-color: #204e32;
+        }
+        form {
+            margin-left: 37%;
+            margin-top: 20px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 25%;
+            min-width: 300px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        input:focus {
+            border-color: #185030;
+            outline: none;
+        }
+
+         .but {
+            background-color: #377552;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .but:hover {
+            background-color: #204e32;
+        }
+
+        .but:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+        h3{
+            margin-left: 41%;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div>
+            <button id="libraryListBtn">Library List</button>
+            <button id="borrowHistoryBtn">Borrow History</button>
+        </div>
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+
+    <h1>Книги в Бібліотеці</h1>
+    <div id="error-message" class="error"></div>
+    <ul id="book-list" class="book-list"></ul>
+
+    <h3>Додати книгу до бібліотеки</h3>
+    <form id="add-book-form">
+        <label for="book_title">Назва книги:</label>
+        <input type="text" id="book_title" name="book_title" required>
+
+        <label for="published_year">Рік публікації:</label>
+        <input type="date" id="published_year" name="published_year" required>
+
+        <label for="authors_input">Автори (через кому):</label>
+        <input type="text" id="authors_input" name="authors_input" required>
+
+        <label for="categories_input">Категорії (через кому):</label>
+        <input type="text" id="categories_input" name="categories_input" required>
+
+        <button class = "but" type="submit">Додати книгу</button>
+    </form>
+
+    <div id="response-message" style="margin-top: 20px;"></div>
+
+    <div id="response-message" style="margin-top: 20px;"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        async function loadBooks() {
+            const token = localStorage.getItem('access_token');
+            if (!token) {
+                alert('You are not logged in!');
+                window.location.href = '/api/login';
+                return;
+            }
+
+            const libraryId = getLibraryIdFromUrl();
+
+            try {
+                const response = await fetch(`/api/api/libraries/${libraryId}/books/`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.ok) {
+                    const books = await response.json();
+                    displayBooks(books);
+                } else {
+                    const error = await response.json();
+                    document.getElementById('error-message').textContent =
+                        error.detail || 'Failed to load books.';
+                    document.getElementById('error-message').style.display = 'block';
+                }
+            } catch (error) {
+                document.getElementById('error-message').textContent =
+                    'An error occurred while fetching books.';
+                document.getElementById('error-message').style.display = 'block';
+            }
+        }
+
+        function displayBooks(books) {
+            const bookListElement = document.getElementById('book-list');
+            bookListElement.innerHTML = '';
+
+            if (!books || books.length === 0) {
+                const noBooksMessage = document.createElement('li');
+                noBooksMessage.textContent = 'No books available for this library.';
+                bookListElement.appendChild(noBooksMessage);
+                return;
+            }
+
+            books.forEach(book => {
+                if (book && book.book_title && book.authors && book.categories) {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'book-item';
+
+                    const authors = book.authors.map(author => `${author.author_first_name} ${author.author_last_name}`).join(', ');
+                    const categories = book.categories.map(category => category.book_category_name).join(', ');
+
+                    listItem.innerHTML = `
+                        <div class="book-title">${book.book_title}</div>
+                        <div class="book-info">
+                            <span>Автори: ${authors}</span>
+                            <span>Категорії: ${categories}</span>
+                            <span>Дата публікації: ${book.published_year}</span>
+                        </div>
+                        <button class="book-button" onclick="addBorrowHistory(${book.id})">Отримати</button>
+                    `;
+                    bookListElement.appendChild(listItem);
+                }
+            });
+        }
+
+        async function addBorrowHistory(bookId) {
+            const token = localStorage.getItem('access_token');
+            if (!token) {
+                alert('You are not logged in!');
+                window.location.href = '/api/login';
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/user/borrow-history/${bookId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ book: bookId }),
+                });
+
+                if (response.ok) {
+                    alert('Книга додана в історію позик!');
+                    window.location.href = '/api/borrow-history';
+                } else {
+                    const error = await response.json();
+                    alert(`Помилка: ${error.detail || 'Не вдалося додати книгу.'}`);
+                }
+            } catch (error) {
+                alert('Сталася помилка при додаванні книги.');
+            }
+        }
+
+        function getLibraryIdFromUrl() {
+            const pathParts = window.location.pathname.split('/');
+            return pathParts[3];
+        }
+
+        window.onload = loadBooks;
+
+        document.getElementById('libraryListBtn').addEventListener('click', function() {
+            window.location.href = '/api/libraries';
+        });
+
+        document.getElementById('borrowHistoryBtn').addEventListener('click', function() {
+            window.location.href = '/api/borrow-history';
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            localStorage.removeItem('access_token');
+            window.location.href = '/api/login';
+        });
+
+        document.getElementById('add-book-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const libraryId = getLibraryIdFromUrl();
+    const token = localStorage.getItem('access_token');
+
+    if (!token) {
+        alert('You are not logged in!');
+        window.location.href = '/api/login';
+        return;
+    }
+
+    const formData = new FormData(event.target);
+    const bookData = {
+        book_title: formData.get('book_title'),
+        published_year: formData.get('published_year'),
+        authors_input: formData.get('authors_input').split(',').map(author => author.trim()),
+        categories_input: formData.get('categories_input').split(',').map(category => category.trim())
+    };
+
+    fetch(`/api/${libraryId}/add-book/`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify(bookData), 
+    })
+    .then(response => response.json()) 
+    .then(data => {
+        const messageDiv = document.getElementById('response-message');
+        if (data.id) {
+            loadBooks();
+        } else {
+            messageDiv.innerHTML = `<p>Помилка: ${data.detail || 'Невідома помилка'}</p>`;
+            messageDiv.style.color = 'red';
+        }
+    })
+    .catch(error => {
+        document.getElementById('response-message').innerHTML = '<p>Сталася помилка при відправці запиту.</p>';
+        document.getElementById('response-message').style.color = 'red';
+    });
+});
+
+    </script>
+</body>
+</html>

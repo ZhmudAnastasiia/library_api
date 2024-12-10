@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library List</title>
+    <style>
+         .navbar {
+    background-color: #b9f9d3;
+    color: #185030;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 30px;
+    align-items: center;
+    font-size: 18px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar div {
+    display: flex; 
+    gap: 10px; 
+}
+
+.navbar a, .navbar button {
+    color: #185030;
+    text-decoration: none;
+    background-color: #b9f9d3;
+    border: none;
+    width: 150px;
+    padding: 5px 5px;
+    margin-right: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease; 
+}
+
+.navbar a:hover, .navbar button:hover {
+    background-color: #b9f9d3;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2); 
+}
+
+.navbar .logout-btn {
+    background-color: #377552;
+    color: white;
+    width: 100px;
+    padding: 8px 15px; 
+    font-size: 14px; 
+    margin-left: auto; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.navbar .logout-btn:hover {
+    background-color: #1b7250;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2); 
+}
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #dcede3;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2 {
+            color: #185030;
+            margin: 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            margin-right: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between; 
+            align-items: flex-start;
+            width: 100%;
+            max-width: 1200px;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        #library-list-ul {
+            list-style-type: none;
+            padding: 0;
+            width: 48%; 
+            margin-right: 20px;
+        }
+
+        #borrow-history-ul {
+            list-style-type: none;
+            padding: 0;
+            width: 48%; 
+        }
+
+        #library-list-ul li, #borrow-history-ul li {
+            background-color: #b9f9d3;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 18px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #library-list-ul li:hover, #borrow-history-ul li:hover {
+            background-color: #70bd97;
+        }
+
+        .library-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #185030;
+        }
+
+        .library-address {
+            font-size: 14px;
+            color: #757575;
+            margin-top: 5px;
+        }
+
+        form {
+            margin-top: 20px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 35%;
+            min-width: 300px;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        input:focus {
+            border-color: #185030;
+            outline: none;
+        }
+
+        button {
+            background-color: #377552;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #204e32;
+        }
+
+        button:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+
+        .alert {
+            background-color: #ffcc00;
+            color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: -20px;
+            margin-left: 0;
+            font-size: 25px;
+            width: 100%;
+            margin-left: 600px;
+            padding-top: 30px;
+        }
+        h1{
+            margin-bottom: -60px;
+            margin-left: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div>
+            <button id="libraryListBtn">Library List</button>
+            <button id="borrowHistoryBtn">Borrow History</button>
+        </div>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <div class="header-container">
+        <h1>Libraries</h1>
+        <h2>Add New Library</h2>
+    </div>
+    
+    <div class="container">
+        <ul id="library-list-ul">
+        </ul>
+
+        <form id="newLibraryForm">
+            <label for="libraryName">Name:</label>
+            <input type="text" id="libraryName" required><br>
+            
+            <label for="libraryLocation">Location:</label>
+            <input type="text" id="libraryLocation" required><br>
+
+            <button type="submit">Add Library</button>
+        </form>
+
+        <ul id="borrow-history-ul" style="display:none;">
+        </ul>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        async function fetchLibraries() {
+            const accessToken = localStorage.getItem('access_token');
+            if (!accessToken) {
+                alert('You are not logged in!');
+                return;
+            }
+
+            const response = await fetch('/api/api/libraries/', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                const libraries = await response.json();
+                console.log('Libraries:', libraries);
+
+                const libraryListUl = document.getElementById('library-list-ul');
+                libraryListUl.innerHTML = '';
+
+                if (libraries && Array.isArray(libraries)) {
+                    libraries.forEach(library => {
+                        const listItem = document.createElement('li');
+                        listItem.innerHTML = `
+                            <div class="library-name">${library.library_name}</div>
+                            <div class="library-address">${library.library_address}</div>
+                        `;
+                        
+                        listItem.addEventListener('click', () => {
+                            window.location.href = `/api/libraries/${library.id}/books/`;
+                        });
+
+                        libraryListUl.appendChild(listItem);
+                    });
+                } else {
+                    console.error('Invalid library data format');
+                }
+            } else {
+                console.error('Error fetching libraries:', response.statusText);
+                alert('Failed to fetch libraries!');
+            }
+        }
+
+        async function fetchBorrowHistory() {
+            const accessToken = localStorage.getItem('access_token');
+            if (!accessToken) {
+                alert('You are not logged in!');
+                return;
+            }
+
+            const response = await fetch('/api/api/borrow-history/', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                const borrowHistory = await response.json();
+                console.log('Borrow History:', borrowHistory);
+
+                const borrowHistoryUl = document.getElementById('borrow-history-ul');
+                borrowHistoryUl.innerHTML = '';
+
+                if (borrowHistory && Array.isArray(borrowHistory)) {
+                    borrowHistory.forEach(history => {
+                        const listItem = document.createElement('li');
+                        listItem.innerHTML = `
+                            <div>${history.book_title}</div>
+                            <div>Borrowed on: ${history.borrow_date}</div>
+                            <div>Returned on: ${history.return_date}</div>
+                        `;
+                        
+                        borrowHistoryUl.appendChild(listItem);
+                    });
+                    borrowHistoryUl.style.display = 'block';
+                } else {
+                    console.error('Invalid borrow history data format');
+                }
+            } else {
+                console.error('Error fetching borrow history:', response.statusText);
+                alert('Failed to fetch borrow history!');
+            }
+        }
+
+        async function logout() {
+            localStorage.removeItem('access_token');
+            alert('You have logged out!');
+            window.location.href = '/api/login'; 
+        }
+
+        document.getElementById('newLibraryForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const accessToken = localStorage.getItem('access_token');
+            const libraryName = document.getElementById('libraryName').value;
+            const libraryLocation = document.getElementById('libraryLocation').value;
+
+            if (!accessToken) {
+                alert('You are not logged in!');
+                return;
+            }
+
+            const response = await fetch('/api/api/libraries/', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    library_name: libraryName,
+                    library_address: libraryLocation,
+                }),
+            });
+
+            if (response.ok) {
+                alert('Library added successfully!');
+                fetchLibraries();  
+                document.getElementById('newLibraryForm').reset();
+            } else {
+                alert('Failed to add library!');
+            }
+        });
+
+        document.getElementById('libraryListBtn').addEventListener('click', function() {
+        window.location.href = '/api/libraries';  
+    });
+
+    document.getElementById('borrowHistoryBtn').addEventListener('click', function() {
+        window.location.href = '/api/borrow-history'; 
+    });
+
+        window.onload = fetchLibraries;
+    </script>
+</body>
+</html>
