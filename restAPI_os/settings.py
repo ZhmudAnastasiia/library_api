@@ -46,7 +46,7 @@ DATABASES = {
         'PORT': '3306',
         'OPTIONS': {
             'ssl': {
-                'ca': os.environ.get('SSL_CERTIFICATE'),  # Використовуємо секрет з GitHub
+                'ca': './ssl_certificate.pem',  # Використовуємо секрет з GitHub
             }
         }
     }
