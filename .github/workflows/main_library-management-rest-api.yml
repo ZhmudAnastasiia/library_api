@@ -30,8 +30,10 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Set SSL certificate as environment variable
-        run: echo "SSL_CERTIFICATE=${{ secrets.SSL_CERTIFICATE }}" >> $GITHUB_ENV
+      - name: Set up SSL certificate
+        run: echo "$SSL_CERTIFICATE" > ./ssl_certificate.pem
+        env:
+          SSL_CERTIFICATE: ${{ secrets.SSL_CERTIFICATE }}
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
