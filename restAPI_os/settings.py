@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 from datetime import timedelta
 
@@ -39,14 +39,14 @@ ALLOWED_HOSTS = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'libazure',               
-        'USER': 'root1',                   
-        'PASSWORD': 'Na.290909',               
-        'HOST': 'djangorestdb.mysql.database.azure.com',                   
+        'NAME': 'libazure',
+        'USER': 'root1',
+        'PASSWORD': 'Na.290909',
+        'HOST': 'djangorestdb.mysql.database.azure.com',
         'PORT': '3306',
         'OPTIONS': {
             'ssl': {
-                'ca': r'D:\djangooo\restAPI_os\DigiCertGlobalRootCA.crt.pem',  
+                'ca': os.environ.get('SSL_CERTIFICATE'),  # Використовуємо секрет з GitHub
             }
         }
     }
