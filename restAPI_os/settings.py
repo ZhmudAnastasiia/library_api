@@ -46,7 +46,7 @@ DATABASES = {
         'PORT': '3306',
         'OPTIONS': {
             'ssl': {
-                'ca': r'D:\DigiCertGlobalRootCA.crt.pem',  
+                'ca': r'D:\djangooo\restAPI_os\DigiCertGlobalRootCA.crt.pem',  
             }
         }
     }
