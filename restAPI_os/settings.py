@@ -38,12 +38,17 @@ ALLOWED_HOSTS = [
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',  
-        'NAME': 'library',              
-        'USER': 'root',                   
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'libazure',               
+        'USER': 'root1',                   
         'PASSWORD': 'Na.290909',               
-        'HOST': 'lib-server1.mysql.database.azure.com',                  
+        'HOST': 'djangorestdb.mysql.database.azure.com',                   
         'PORT': '3306',
+        'OPTIONS': {
+            'ssl': {
+                'ca': r'D:\DigiCertGlobalRootCA.crt.pem',  # шлях до сертифіката
+            }
+        }
     }
 }
 
