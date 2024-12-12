@@ -12,6 +12,23 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 from datetime import timedelta
+from opencensus.trace.samplers import ProbabilitySampler
+from opencensus.ext.azure.log_exporter import AzureLogHandler
+from opencensus.ext.azure.trace_exporter import AzureExporter
+
+OPENCENSUS = {
+    'TRACE': {
+        'SAMPLER': ProbabilitySampler(rate=1.0),  # Adjust sampling rate (0.0 - 1.0)
+        'EXPORTER': AzureExporter(
+            instrumentation_key='a6d6e7bb-9655-42d1-b6bd-3edf4f402884'
+        ),
+    },
+    'LOGGING': {
+        'EXPORTER': AzureLogHandler(
+            instrumentation_key='a6d6e7bb-9655-42d1-b6bd-3edf4f402884'
+        ),
+    },
+}
 
 CSRF_COOKIE_SECURE = False
 CORS_ALLOW_ALL_ORIGINS = True 
@@ -76,6 +93,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'opencensus.ext.django.middleware.OpencensusMiddleware',
 ]
 
 ROOT_URLCONF = 'restAPI_os.urls'
@@ -174,6 +192,14 @@ TEMPLATES = [
         },
     },
 ]
+
+# Application Insights configuration
+APPLICATION_INSIGHTS = {
+    'INSTRUMENTATION_KEY': 'a6d6e7bb-9655-42d1-b6bd-3edf4f402884',
+    # Optional: Use the connection string instead
+    # 'CONNECTION_STRING': 'your-connection-string-here'
+}
+
 
 
 # Static files (CSS, JavaScript, Images)
