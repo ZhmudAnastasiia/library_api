@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 from datetime import timedelta
+from opencensus.ext.azure.trace_exporter import AzureExporter
+from opencensus.trace.samplers import ProbabilitySampler
 
 CSRF_COOKIE_SECURE = False
 CORS_ALLOW_ALL_ORIGINS = True 
@@ -56,6 +58,7 @@ DATABASES = {
 # Application definition
 
 INSTALLED_APPS = [
+    'opencensus.ext.django',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -69,6 +72,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'opencensus.ext.django.middleware.OpencensusMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -174,6 +178,15 @@ TEMPLATES = [
         },
     },
 ]
+
+OPENCENSUS = {
+    'TRACE': {
+        'SAMPLER': ProbabilitySampler(1.0),  # 1.0 означає, що всі запити будуть відстежуватись
+        'EXPORTER': AzureExporter(
+            connection_string="InstrumentationKey=a6d6e7bb-9655-42d1-b6bd-3edf4f402884"
+        ),
+    }
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
